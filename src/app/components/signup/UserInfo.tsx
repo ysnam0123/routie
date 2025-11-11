@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 import { useSignUpStore } from '@/store/SignupStore';
 import Input from '../common/ui/Input';
 import { checkEmail } from '@/api/auth';
+import TitleAndInputBox from './TitleAndInputBox';
 
 export default function UserInfo({
-  onValidChange,
+  onValidChangeAction,
 }: {
-  onValidChange?: (valid: boolean) => void;
+  onValidChangeAction?: (valid: boolean) => void;
 }) {
   const name = useSignUpStore((state) => state.name);
   const email = useSignUpStore((state) => state.email);
@@ -74,40 +75,30 @@ export default function UserInfo({
 
   useEffect(() => {
     setIsNextEnabled(isFormValid);
-    onValidChange?.(isFormValid);
-  }, [isFormValid, setIsNextEnabled, onValidChange]);
+    onValidChangeAction?.(isFormValid);
+  }, [isFormValid, setIsNextEnabled, onValidChangeAction]);
 
   return (
     <>
-      {/* 전체 박스 */}
-      <div className="mx-auto w-full max-w-screen-sm px-5 pt-[50px]">
-        {/* 이름 */}
-        <div className="mb-[34px]">
-          <p className="mb-[10px] text-[16px] font-semibold dark:text-[var(--dark-gray-700)]">
-            이름
-          </p>
-          <Input
-            placeholder="이름을 입력해 주세요"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+      <div className="mx-auto flex w-full max-w-screen-sm flex-col gap-[30px] px-5 pt-[50px]">
+        <TitleAndInputBox
+          title="이름"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="이름을 입력하세요"
+        />
+
+        <div>
+          <TitleAndInputBox
+            title="이메일(아이디)"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailStatus('idle');
+            }}
+            placeholder="이메일을 입력해주세요"
+            onBlur={validateEmail}
           />
-        </div>
-        {/* 이메일 */}
-        <div className="mb-[34px]">
-          <p className="mb-[10px] text-[16px] font-semibold dark:text-[var(--dark-gray-700)]">
-            이메일(아이디)
-          </p>
-          <div className="flex gap-[10px]">
-            <Input
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailStatus('idle');
-              }}
-              onBlur={validateEmail}
-              placeholder="이메일을 입력해주세요"
-            />
-          </div>
           <div className="mt-2">
             {emailStatus === 'invalid' && (
               <p className="text-[14px] text-[#D32F2F] dark:text-[var(--dark-red)]">
@@ -122,7 +113,7 @@ export default function UserInfo({
           </div>
         </div>
         {/* 비밀번호 */}
-        <div className="mb-[34px]">
+        <div>
           <p className="mb-[10px] text-[16px] font-semibold dark:text-[var(--dark-gray-700)]">
             비밀번호
           </p>
@@ -181,7 +172,7 @@ export default function UserInfo({
           </div>
         </div>
         {/* 비밀번호 확인 */}
-        <div className="mb-[34px]">
+        <div>
           <p className="mb-[10px] text-[16px] font-semibold dark:text-[var(--dark-gray-700)]">
             비밀번호 확인
           </p>

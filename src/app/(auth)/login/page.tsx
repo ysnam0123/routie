@@ -9,8 +9,11 @@ import { useRouter } from 'next/navigation';
 import { useSignUpStore } from '@/store/SignupStore';
 import { signIn } from '@/api/auth';
 import { useUserStore } from '@/store/UserStore';
-import kakao from '/public/kakao.svg';
+
 import logo from '/public/logo.png';
+import Google from '@/app/components/login/Google';
+import KaKao from '@/app/components/login/KaKao';
+import TestBox from '@/app/components/login/TestBox';
 
 export default function Page() {
   const [emailInput, setEmailInput] = useState('');
@@ -89,7 +92,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-white px-5 pt-30 select-none dark:bg-[var(--dark-bg-primary)]">
+    <div className="flex min-h-screen flex-col items-center bg-white px-5 pt-12 select-none dark:bg-[var(--dark-bg-primary)]">
       <div className="w-full max-w-md">
         <div className="flex justify-center">
           <Image
@@ -145,27 +148,8 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <Button
-                type="button"
-                className="gap-2 border border-[#e0e0e0] bg-white text-base text-black dark:bg-[var(--dark-bg-primary)] dark:text-[var(--dark-gray-700)]"
-                onClick={handleGoogleLogin}
-              >
-                <Image
-                  src="/images/google.svg"
-                  alt="Google"
-                  width={20}
-                  height={20}
-                />
-                구글 계정으로 로그인
-              </Button>
-              <button
-                type="button"
-                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#FEE500] py-3 font-medium text-[#000000] transition-colors hover:bg-[#FDD800]"
-                onClick={handleKakaoLogin}
-              >
-                <Image src={kakao} alt="Kakao Logo" className="h-5 w-5" />
-                카카오로 로그인
-              </button>
+              <Google logInHandler={handleGoogleLogin} />
+              <KaKao logInHandler={handleKakaoLogin} />
             </div>
           </div>
         </form>
@@ -186,18 +170,7 @@ export default function Page() {
             <ChevronRight className="ml-1 h-3.5 w-3.5" />
           </a>
         </div>
-        <div className="mt-10 flex flex-col items-center justify-center border border-red-600 py-3">
-          <p className="text-red-600">
-            {' '}
-            ** 현재 서버가 연결되어있지 않습니다 **{' '}
-          </p>
-          <Button
-            onClick={() => router.push('/test')}
-            className="mt-3 w-[300px] bg-red-500 hover:bg-red-400 active:bg-red-700"
-          >
-            테스트 로그인 하기
-          </Button>
-        </div>
+        <TestBox />
       </div>
     </div>
   );
