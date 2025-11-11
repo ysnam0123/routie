@@ -37,15 +37,22 @@ export default function Home() {
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
   const queryClient = useQueryClient();
   const { data: weekData, isPending: weekLoading } = useWeekRoutine();
-  console.log('🔍 social 값:', searchParams.get('social'));
   useEffect(() => {
     const social = searchParams.get('social');
     if (social === 'true') {
       setIsLoggedIn(true);
       setIsSocial(true);
-      console.log('✅ setIsLoggedIn(true) 실행됨');
+      console.log('✅ 소셜 로그인 상태 세팅 완료');
     }
   }, [searchParams, setIsLoggedIn, setIsSocial]);
+  // useEffect(() => {
+  //   const social = searchParams.get('social');
+  //   if (social === 'true') {
+  //     setIsLoggedIn(true);
+  //     setIsSocial(true);
+  //     console.log('✅ setIsLoggedIn(true) 실행됨');
+  //   }
+  // }, [searchParams, setIsLoggedIn, setIsSocial]);
 
   useEffect(() => {
     queryClient.prefetchQuery({
@@ -129,7 +136,10 @@ export default function Home() {
             </div>
             <div className="flex min-h-screen flex-col gap-5 bg-white p-4 dark:bg-[var(--dark-bg-primary)]">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-[86px] w-full animate-pulse rounded-[10px] bg-gray-200"></div>
+                <div
+                  key={i}
+                  className="h-[86px] w-full animate-pulse rounded-[10px] bg-gray-200"
+                ></div>
               ))}
             </div>
           </div>
@@ -140,12 +150,14 @@ export default function Home() {
             <div className="flex min-h-[480px] flex-1 flex-col items-center rounded-[10px] bg-white p-4 dark:bg-[var(--dark-bg-primary)]">
               <div className="mb-6 flex w-full items-center justify-between">
                 <div className="flex flex-col justify-center">
-                  <span className="text-base text-[#616161] font-semibold dark:text-[var(--dark-gray-700)]">
+                  <span className="text-base font-semibold text-[#616161] dark:text-[var(--dark-gray-700)]">
                     {todayStr}
                   </span>
                   <div className="pt-1 text-[26px] font-bold dark:text-[var(--dark-gray-700)]">
                     오늘의 루틴{' '}
-                    <span className="text-[#ffb84c] pl-1">{filteredRoutines.length}</span>
+                    <span className="pl-1 text-[#ffb84c]">
+                      {filteredRoutines.length}
+                    </span>
                   </div>
                 </div>
                 <Donut
@@ -167,10 +179,12 @@ export default function Home() {
                       time={routine.triggerTime}
                       isImportant={routine.isImportant}
                       isCompleted={routine.isDone}
-                      onClick={() => mutate({
-                        scheduleId: routine.scheduleId,
-                        isDone: !routine.isDone,
-                      })}
+                      onClick={() =>
+                        mutate({
+                          scheduleId: routine.scheduleId,
+                          isDone: !routine.isDone,
+                        })
+                      }
                       onEditClick={() => {
                         useRoutineStore.getState().setRoutine({
                           ...routine,
@@ -184,7 +198,7 @@ export default function Home() {
                   ))
                 ) : (
                   <div className="mt-40 flex flex-col items-center justify-center gap-2">
-                    <div className="w-48 h-48">
+                    <div className="h-48 w-48">
                       <Lottie animationData={CatAnimation} loop autoplay />
                     </div>
                     <span className="-mt-20 text-xl font-medium text-[#616161]">
@@ -194,7 +208,7 @@ export default function Home() {
                       루틴을 등록하고 꾸준히 관리해보세요!
                     </span>
                     <button
-                      className="mt-6 h-[50px] w-[140px] rounded-lg bg-[#FFF4D1] px-5 text-base font-semibold text-[#ffb84c] active:bg-[#ffb84c] dark:text-[var(--dark-bg-primary)] cursor-pointer"
+                      className="mt-6 h-[50px] w-[140px] cursor-pointer rounded-lg bg-[#FFF4D1] px-5 text-base font-semibold text-[#ffb84c] active:bg-[#ffb84c] dark:text-[var(--dark-bg-primary)]"
                       onClick={handleAddRoutine}
                     >
                       루틴 등록하기
@@ -226,4 +240,3 @@ export default function Home() {
     </>
   );
 }
-
