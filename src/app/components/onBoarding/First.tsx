@@ -11,7 +11,6 @@ export default function First() {
   const resetStep = useOnBoardingStore((state) => state.resetStep);
   const { setStep, step } = useOnBoardingStore();
 
-  const totalSteps = 5;
   const skip = () => router.push('/login');
   const goNext = () => setStep(2);
 
@@ -22,9 +21,9 @@ export default function First() {
   }, []);
 
   return (
-    <div className="flex h-[calc(100vh-54px)] flex-col justify-between overflow-hidden bg-white pt-[-54px]">
+    <div className="">
       {/* 상단 영역 */}
-      <div className="flex flex-col items-center select-none">
+      <div className="mb-20 flex flex-col items-center select-none">
         <Image
           src={logo}
           alt="logo"
@@ -37,14 +36,14 @@ export default function First() {
             show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
           }`}
         >
-          혼자 사는 모든 순간을,
+          매 순간을 <span className="text-[#FFB84C]">더 가치있게</span>
         </h1>
         <p
-          className={`text-3xl font-bold transition-all delay-600 duration-700 ease-out ${
+          className={`text-[16px] font-bold transition-all delay-600 duration-700 ease-out sm:text-3xl ${
             show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
           }`}
         >
-          더 가치있게
+          작은 습관부터 큰 변화까지, 루티와 함께
         </p>
       </div>
 
@@ -54,36 +53,7 @@ export default function First() {
           show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
         }`}
       >
-        <Image src={image2} alt="image2" className="w-[190px]" />
-      </div>
-
-      {/* 하단 네비 */}
-      <div className="flex w-full justify-between bg-[#ffffff] p-[20px] text-black">
-        <button
-          onClick={() => {
-            skip();
-            resetStep();
-          }}
-          className="cursor-pointer text-[12px] transition-all duration-100 ease-in hover:text-[#FFB84C] sm:text-[16px]"
-        >
-          skip
-        </button>
-        <div className="flex gap-2">
-          {[...Array(totalSteps)].map((_, i) => (
-            <Dot
-              key={i}
-              className={`h-8 w-8 ${
-                step === i + 1 ? 'text-[#FFB84C]' : 'text-gray-300'
-              }`}
-            />
-          ))}
-        </div>
-        <button
-          onClick={goNext}
-          className="cursor-pointer text-[16px] transition-all duration-100 ease-in hover:text-[#FFB84C]"
-        >
-          다음
-        </button>
+        <Image src={image2} alt="image2" className="w-[220px]" />
       </div>
     </div>
   );

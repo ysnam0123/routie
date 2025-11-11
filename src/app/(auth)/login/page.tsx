@@ -89,7 +89,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-white px-5 pt-50 select-none dark:bg-[var(--dark-bg-primary)]">
+    <div className="flex min-h-screen flex-col items-center bg-white px-5 pt-30 select-none dark:bg-[var(--dark-bg-primary)]">
       <div className="w-full max-w-md">
         <div className="flex justify-center">
           <Image
@@ -185,6 +185,18 @@ export default function Page() {
             비밀번호를 잊으셨나요?
             <ChevronRight className="ml-1 h-3.5 w-3.5" />
           </a>
+        </div>
+        <div className="mt-10 flex flex-col items-center justify-center border border-red-600 py-3">
+          <p className="text-red-600">
+            {' '}
+            ** 현재 서버가 연결되어있지 않습니다 **{' '}
+          </p>
+          <Button
+            onClick={() => router.push('/test')}
+            className="mt-3 w-[300px] bg-red-500 hover:bg-red-400 active:bg-red-700"
+          >
+            테스트 로그인 하기
+          </Button>
         </div>
       </div>
     </div>

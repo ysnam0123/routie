@@ -20,7 +20,7 @@ export default function Third() {
   }, []);
   return (
     <>
-      <div className="flex h-[calc(100vh-54px)] flex-col items-center justify-between">
+      <div className="h-full">
         {/* 상단 텍스트 */}
         <div className="mb-[40px] flex flex-col items-center text-[20px] select-none">
           <h2
@@ -36,7 +36,7 @@ export default function Third() {
         </div>
         <ThirdDiv show={show} />
 
-        <div className="flex w-full justify-between bg-white p-[26px] px-15 font-semibold">
+        {/* <div className="flex w-full justify-between bg-white p-[26px] px-15 font-semibold">
           <button
             className="cursor-pointer text-[12px] transition-all duration-100 ease-in hover:text-[#ffb84c] sm:text-[16px]"
             onClick={() => {
@@ -62,7 +62,7 @@ export default function Third() {
           >
             다음
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

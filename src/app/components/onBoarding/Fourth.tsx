@@ -29,8 +29,8 @@ export default function Fourth() {
   }, []);
   return (
     <>
-      <div className="flex h-[calc(100vh-54px)] flex-col items-center justify-between">
-        <div className="mb-[40px] flex flex-col items-center text-[20px] select-none">
+      <div className="h-full">
+        <div className="mb-[20px] flex flex-col items-center text-[20px] select-none">
           <h2
             className={`transition-all duration-700 ease-out ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
           >
@@ -43,7 +43,8 @@ export default function Fourth() {
           </h1>
         </div>
         <div
-          className={`w-full max-w-[390px] rounded-[20px] border border-[#b4b4b4] px-[28px] pt-[45px] transition-all delay-1200 duration-700 ease-out select-none ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
+          className={`w-full max-w-[390px] flex-1 overflow-y-scroll rounded-[20px] border border-[#b4b4b4] px-[28px] pt-[45px] transition-all delay-1200 duration-700 ease-out select-none ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
+          style={{ maxHeight: 'calc(100vh - 180px)' }} // 상단 여백+텍스트 높이 고려
         >
           <div
             className={`transition-all delay-1500 duration-700 ease-out select-none ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
@@ -87,34 +88,6 @@ export default function Fourth() {
           >
             <Image src={fourth2} alt="fourth2" />
           </div>
-        </div>
-
-        <div className="flex w-full justify-between bg-white p-[26px] px-15 font-semibold">
-          <button
-            className="cursor-pointer text-[12px] transition-all duration-100 ease-in hover:text-[#ffb84c] sm:text-[16px]"
-            onClick={() => {
-              skip();
-              resetStep();
-            }}
-          >
-            skip
-          </button>
-          <div className="flex gap-2">
-            {[...Array(totalSteps)].map((_, i) => (
-              <Dot
-                key={i}
-                className={`h-8 w-8 ${
-                  step === i + 1 ? 'text-[#FFB84C]' : 'text-gray-400'
-                }`}
-              />
-            ))}
-          </div>
-          <button
-            className="cursor-pointer text-[12px] transition-all duration-100 ease-in hover:text-[#ffb84c] sm:text-[16px]"
-            onClick={goNext}
-          >
-            다음
-          </button>
         </div>
       </div>
     </>

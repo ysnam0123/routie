@@ -22,10 +22,9 @@ export default function Second() {
 
   return (
     <>
-      <div className="flex h-[calc(100vh-54px)] flex-col items-center justify-between">
+      <div className="h-full">
         {/* 상단 텍스트 */}
         <div className="mb-[10px] flex flex-col items-center text-[20px] select-none">
-          <Image src={logo} alt="로고" className="mb-5 w-[168px]" />
           <h2
             className={`transition-all duration-700 ease-out ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
           >
@@ -39,34 +38,36 @@ export default function Second() {
           </h1>
         </div>
         <div
-          className={`w-full max-w-[390px] px-[28px] pt-[45px] transition-all delay-1200 duration-700 ease-out select-none ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
+          className={`flex w-full max-w-[390px] flex-col items-center gap-10 px-[28px] pt-[45px] transition-all delay-1200 duration-700 ease-out select-none ${show ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
         >
-          <div className="relative mb-10">
-            <Image src={bg} alt="배경" className="w-full rounded-[10px]" />
-            <Image
-              src={character}
-              alt="캐릭터"
-              className="absolute top-[135px] left-1/2 w-[120px] -translate-x-1/2 -translate-y-1/2"
-            />
+          <div>
+            <div className="relative mb-10">
+              <Image src={bg} alt="배경" className="w-full rounded-[10px]" />
+              <Image
+                src={character}
+                alt="캐릭터"
+                className="absolute top-[135px] left-1/2 w-[120px] -translate-x-1/2 -translate-y-1/2"
+              />
+            </div>
+            <div className="relative">
+              <Image src={bg2} alt="배경" className="w-full rounded-[10px]" />
+              <Image
+                src={character}
+                alt="캐릭터"
+                className="absolute top-[135px] left-1/2 mb-10 w-[120px] -translate-x-1/2 -translate-y-1/2"
+              />
+            </div>
           </div>
-          <div className="relative">
-            <Image src={bg2} alt="배경" className="w-full rounded-[10px]" />
-            <Image
-              src={character}
-              alt="캐릭터"
-              className="absolute top-[135px] left-1/2 w-[120px] -translate-x-1/2 -translate-y-1/2"
-            />
-          </div>
+          <button
+            className="flex h-[50px] w-[320px] cursor-pointer items-center justify-center rounded-[10px] bg-[#FFB84C] text-[16px] text-white transition-all duration-100 ease-in hover:bg-[#b89868] sm:min-w-[390px]"
+            onClick={() => {
+              resetStep();
+              goNext();
+            }}
+          >
+            시작하기
+          </button>
         </div>
-        <button
-          className="mb-20 flex h-[50px] w-[320px] cursor-pointer items-center justify-center rounded-[10px] bg-[#FFB84C] text-[16px] text-white transition-all duration-100 ease-in hover:bg-[#b89868] sm:min-w-[390px]"
-          onClick={() => {
-            resetStep();
-            goNext();
-          }}
-        >
-          시작하기
-        </button>
       </div>
     </>
   );

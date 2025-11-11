@@ -6,6 +6,7 @@ import Second from './components/onBoarding/Second';
 import Third from './components/onBoarding/Third';
 import Fourth from './components/onBoarding/Fourth';
 import Fifth from './components/onBoarding/Fifth';
+import OnBoardingFooter from './components/onBoarding/OnBoardingFooter';
 
 export default function OnBoarding() {
   const step = useOnBoardingStore((state) => state.step);
@@ -31,7 +32,10 @@ export default function OnBoarding() {
   }
   return (
     <>
-      <div>{StepComponent}</div>
+      <div className="flex h-screen w-full flex-col items-center justify-between pt-10">
+        <div className="">{StepComponent}</div>
+        <OnBoardingFooter currentStep={step} />
+      </div>
     </>
   );
 }
