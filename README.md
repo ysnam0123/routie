@@ -89,7 +89,49 @@
 
 ## 역할 분담
 ## 👽 남윤서(팀장)
+### 🔐 로그인 및 회원가입
+- Zustand의 useSignUpStore를 사용하여 회원가입 단계를 관리
+- step 상태를 통해 7개의 스텝별 컴포넌트를 순차적으로 렌더링
+- persist 미들웨어를 적용해 새로고침 시에도 회원가입 데이터가 유지되도록 구현
 
+- 로그인되지 않은 사용자가 보호된 페이지 접근 시, 자동으로 로그인 페이지로 리다이렉트
+- Hydration 문제 발생 방지를 위해 useEffect와 클라이언트 측 렌더링 제어 로직 추가
+
+### 🏠 메인화면
+React Query + Zustand 기반의 메인 루틴 화면 구성
+	- useWeekRoutine()으로 주간 루틴 데이터를 불러와 오늘의 루틴만 필터링
+	- useUserStore, useRoutineStore를 통해 로그인 및 루틴 상태 전역 관리
+소셜 로그인 후 상태 동기화 처리
+	- URL의 ?social=true 파라미터 감지 후 useEffect 내에서 로그인 상태 수동 세팅
+	- 클라이언트 상태 초기화 문제 해결 (Hydration 보완)
+React Query의 prefetchQuery로 성능 최적화
+	- 배지(getBadges), 상점 아이템(fetchItems), 퀘스트(fetchUserQuest) 데이터를 사전 로드하여 초기 렌더링 지연 최소화
+루틴 완료/삭제 기능
+	- useHandleRoutine, useDeleteRoutine mutation으로 즉시 반영
+	- 삭제 시 AlertModal을 통해 사용자 확인 절차 제공
+UX 개선 요소
+	- FloatingButton을 이용해 퀘스트/도감으로 손쉽게 이동
+
+📝 루틴 추가 페이지
+루틴 정보 입력 폼 구현
+	•	루틴 이름, 카테고리, 시작일, 반복 주기, 수행 시간, 중요도 등 입력 가능
+	•	useState를 통해 각 필드 상태 관리
+	•	폼 상태(isSubmitEnabled)를 기반으로 확인 버튼 활성화/비활성화 제어
+카테고리 및 반복 설정 관리
+	•	CategorySelector 및 CategoryBottomSheetContainer를 사용해 카테고리 선택 UI 구현
+	•	RepeatSelector와 WhenSelector를 통해 반복 주기 및 수행 시간 선택 UI 제공
+	•	선택값을 가독성 있는 텍스트(cycleText)로 변환하여 표시
+추천 루틴 기능
+	•	useRoutinePreset으로 카테고리별 추천 루틴 호출
+	•	선택 시 이름, 수행 시간, 반복 주기 자동 반영
+루틴 추가 API 연동
+	•	useAddRoutine로 백엔드에 루틴 생성 요청
+	•	요청 중 로딩 스피너 표시(LoadingSpinner)
+	•	성공 시 루틴 목록 페이지로 자동 이동
+UX 개선 포인트
+	•	클라이언트 상태 변화 로그(useEffect)로 디버깅 및 상태 추적 가능
+	•	입력이 완료되지 않으면 버튼 비활성화로 잘못된 요청 방지
+	•	BottomSheet, 모달, 고정 버튼 등 모바일 친화적 UI 배치
 ---
 
 ## 👽 김은지
